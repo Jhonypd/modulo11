@@ -7,7 +7,7 @@ const NavbarOffcanvasMobile = () => {
   return (
     <Navbar fixed="top" expand="false" className="bg-body-tertiary mb-3 px-4 sm:hidden">
       <Container fluid>
-        <Navbar.Brand href="#">Jhony Car</Navbar.Brand>
+        <Navbar.Brand href="/">Jhony Car</Navbar.Brand>
         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-false`} />
         <Navbar.Offcanvas
           id={`offcanvasNavbar-expand-false`}
