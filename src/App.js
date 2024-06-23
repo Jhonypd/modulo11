@@ -5,6 +5,7 @@ import NavbarOffcanvasMobile from "./components/menu/navbar-mobile";
 import Home from "./pages/home/home";
 import RegisterCar from "./pages/register/register";
 import Solicitations from "./pages/solicitation/solicitation";
+import NavbarOffcanvas from "./components/menu/navbar";
 // import './App.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <NavbarOffcanvasMobile />
+        <NavbarOffcanvas />
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />

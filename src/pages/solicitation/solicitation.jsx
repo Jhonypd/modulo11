@@ -30,7 +30,7 @@ const Solicitations = () => {
         Solicitações Recebidas
       </h1>
 
-      <Row xs={1} md={2} className="g-4">
+      <Row xs={1} md={3} className="g-4">
         {carData.map((data, index) => (
           <Col key={index}>
             <Card bg="info" border="success">
@@ -56,7 +56,7 @@ const Solicitations = () => {
                   </Nav.Item>
                 </Nav>
               </Card.Header>
-              <Card.Body>
+              <Card.Body className="min-h-[128px]">
                 {activeTab[index] === "#car" && (
                   <>
                     <Card.Title className="mb-3">{data.car.Modelo}</Card.Title>
@@ -93,19 +93,13 @@ const Solicitations = () => {
                           <strong>Tipo:</strong> {data.tipoComprador}
                         </Card.Text>
                         <Card.Text> {data.nome}</Card.Text>
-                        <Card.Text>
-                          {data.cpf}
-                        </Card.Text>
+                        <Card.Text>{data.cpf}</Card.Text>
                       </Col>
                       <Col>
+                        <Card.Text>{data.email}</Card.Text>
+                        <Card.Text>{data.telefone}</Card.Text>
                         <Card.Text>
-                           {data.email}
-                        </Card.Text>
-                        <Card.Text>
-                           {data.telefone}
-                        </Card.Text>
-                        <Card.Text>
-                          <strong>Meio de Contato</strong> {data.meioContato}
+                          <strong>Meio de Contato</strong> <br /> {data.meioContato}
                         </Card.Text>
                       </Col>
                     </Row>

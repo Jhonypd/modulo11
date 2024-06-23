@@ -5,7 +5,7 @@ import SliderHome from "../../components/Slider/slider-home";
 const Home = () => {
   return (
     <>
-      <div className="px-1 py-5 mt-5">
+      <div className="px-1 py-5 mt-5 h-screen">
         <SliderHome />
       </div>
     </>

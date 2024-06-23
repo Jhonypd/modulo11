@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 const NavbarOffcanvas = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary hidden sm:flex">
       <Container>
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

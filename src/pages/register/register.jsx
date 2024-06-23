@@ -23,7 +23,7 @@ const RegisterCar = () => {
     tipoComprador: "",
     nome: "",
     cpf: "",
-    cnpj:'',
+    cnpj: "",
     email: "",
     telefone: "",
     meioContato: "",
@@ -119,61 +119,62 @@ const RegisterCar = () => {
     navigate("/solicitation");
   };
 
-
   return (
-    <div className="mt-5 py-5">
+    <div className="mt-5 py-5 flex flex-col justify-center items-center">
       <h1 className="w-full flex justify-center items-center">Solicitar simulação</h1>
-      <Form onSubmit={handleSubmit} className="flex flex-col py-4">
-        <Form.Select
-          className="mb-3"
-          size="sm"
-          name="tipo"
-          onChange={(e) => setVehicleType(e.target.value)}>
-          <option>Selecione o tipo</option>
-          {vehicleTypes.map((vehicle) => (
-            <option key={vehicle.type} value={vehicle.type}>
-              {vehicle.type.toUpperCase()}
-            </option>
-          ))}
-        </Form.Select>
+      <Form onSubmit={handleSubmit} className="flex flex-col py-4 sm:max-w-xl">
+        <div className="grid grid-cols-2 gap-4">
+          <Form.Select
+            className="mb-3"
+            size="sm"
+            name="tipo"
+            onChange={(e) => setVehicleType(e.target.value)}>
+            <option>Selecione o tipo</option>
+            {vehicleTypes.map((vehicle) => (
+              <option key={vehicle.type} value={vehicle.type}>
+                {vehicle.type.toUpperCase()}
+              </option>
+            ))}
+          </Form.Select>
 
-        <Form.Select
-          className="mb-3"
-          size="sm"
-          name="marca"
-          onChange={(e) => setBrand(e.target.value)}>
-          <option>Selecione a marca</option>
-          {brands.map((brandItem) => (
-            <option key={brandItem.codigo} value={brandItem.codigo}>
-              {brandItem.codigo} {brandItem.nome}
-            </option>
-          ))}
-        </Form.Select>
+          <Form.Select
+            className="mb-3"
+            size="sm"
+            name="marca"
+            onChange={(e) => setBrand(e.target.value)}>
+            <option>Selecione a marca</option>
+            {brands.map((brandItem) => (
+              <option key={brandItem.codigo} value={brandItem.codigo}>
+                {brandItem.codigo} {brandItem.nome}
+              </option>
+            ))}
+          </Form.Select>
 
-        <Form.Select
-          className="mb-3"
-          size="sm"
-          name="modelo"
-          onChange={(e) => setModel(e.target.value)}>
-          <option>Selecione o modelo</option>
-          {models.map((modelsItem) => (
-            <option key={modelsItem.codigo} value={modelsItem.codigo}>
-              {modelsItem.codigo} {modelsItem.nome}
-            </option>
-          ))}
-        </Form.Select>
-        <Form.Select
-          className="mb-3"
-          size="sm"
-          name="ano"
-          onChange={(e) => setYear(e.target.value)}>
-          <option>Selecione o Ano</option>
-          {years.map((yearItem) => (
-            <option key={yearItem.codigo} value={yearItem.codigo}>
-              {yearItem.codigo} {yearItem.nome}
-            </option>
-          ))}
-        </Form.Select>
+          <Form.Select
+            className="mb-3"
+            size="sm"
+            name="modelo"
+            onChange={(e) => setModel(e.target.value)}>
+            <option>Selecione o modelo</option>
+            {models.map((modelsItem) => (
+              <option key={modelsItem.codigo} value={modelsItem.codigo}>
+                {modelsItem.codigo} {modelsItem.nome}
+              </option>
+            ))}
+          </Form.Select>
+          <Form.Select
+            className="mb-3"
+            size="sm"
+            name="ano"
+            onChange={(e) => setYear(e.target.value)}>
+            <option>Selecione o Ano</option>
+            {years.map((yearItem) => (
+              <option key={yearItem.codigo} value={yearItem.codigo}>
+                {yearItem.codigo} {yearItem.nome}
+              </option>
+            ))}
+          </Form.Select>
+        </div>
         <h3 className="text-sm my-4">Dados pessoais</h3>
         <Form.Select
           className="mb-3"
@@ -226,28 +227,29 @@ const RegisterCar = () => {
             value={formData.email}
           />
         </InputGroup>
+        <div className="grid grid-cols-2 gap-2 w-full items-center">
+          <InputGroup className="mb-3 ">
+            <InputGroup.Text>Telefone</InputGroup.Text>
+            <Form.Control
+              placeholder="Seu telefone"
+              name="telefone"
+              onChange={handleChange}
+              value={formData.telefone}
+            />
+          </InputGroup>
 
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Telefone</InputGroup.Text>
-          <Form.Control
-            placeholder="Seu telefone"
-            name="telefone"
+          <Form.Select
+            className="mb-3 w-fit"
+            size="sm"
+            name="meioContato"
             onChange={handleChange}
-            value={formData.telefone}
-          />
-        </InputGroup>
-
-        <Form.Select
-          className="mb-3"
-          size="sm"
-          name="meioContato"
-          onChange={handleChange}
-          value={formData.meioContato}>
-          <option value="">Escolha um meio de contato</option>
-          <option value="whatsapp">WhatsApp</option>
-          <option value="email">E-mail</option>
-          <option value="ligacao">Ligação</option>
-        </Form.Select>
+            value={formData.meioContato}>
+            <option value="">Meio de contato</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="email">E-mail</option>
+            <option value="ligacao">Ligação</option>
+          </Form.Select>
+        </div>
         <Button type="submit">Enviar</Button>
       </Form>
     </div>

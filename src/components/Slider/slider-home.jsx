@@ -32,11 +32,11 @@ const SliderHome = () => {
   };
 
   return (
-    <Container className="mx-auto">
+    <Container className="mx-auto max-h-96 sm:h-96">
       <Slider {...settings}>
         {images.map((image, index) => (
           <div key={index}>
-            <Image src={image.src} alt={image.alt} fluid/>
+            <Image src={image.src} alt={image.alt} fluid />
           </div>
         ))}
       </Slider>
