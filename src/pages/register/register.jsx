@@ -2,15 +2,27 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Form, InputGroup, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { getMarcas } from "../../utils/getMarcas";
 import { getModelos } from "../../utils/getModelos";
 import { getAno } from "../../utils/getAno";
 import { getInfos } from "../../utils/getInfos";
+import { useToast } from "../../utils/useToast";
+import ToastItem from "../../components/toast-item";
+import { useClean } from "../../utils/useClean";
 
 const vehicleTypes = [{ type: "carros" }, { type: "motos" }, { type: "caminhoes" }];
-
+const initialFormData = {
+  tipoComprador: "",
+  nome: "",
+  cpf: "",
+  cnpj: "",
+  email: "",
+  telefone: "",
+  meioContato: "",
+};
 const RegisterCar = () => {
+  const { toasts, addToast } = useToast();
+
   const [vehicleType, setVehicleType] = useState(null);
   const [brands, setBrands] = useState([]);
   const [brand, setBrand] = useState(null);
@@ -19,16 +31,9 @@ const RegisterCar = () => {
   const [years, setYears] = useState([]);
   const [year, setYear] = useState(null);
   const [car, setCar] = useState(null);
-  const [formData, setFormData] = useState({
-    tipoComprador: "",
-    nome: "",
-    cpf: "",
-    cnpj: "",
-    email: "",
-    telefone: "",
-    meioContato: "",
-  });
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState(initialFormData);
+
+  const cleanForm = useClean(setFormData, initialFormData);
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -39,10 +44,11 @@ const RegisterCar = () => {
         console.error("Erro ao buscar marcas", error);
       }
     };
+    console.log(vehicleType);
     if (vehicleType) {
       fetchBrands();
     }
-  }, [vehicleType]);
+  }, [vehicleType, addToast]);
 
   useEffect(() => {
     const fetchModels = async () => {
@@ -53,6 +59,7 @@ const RegisterCar = () => {
         console.error("Erro ao buscar modelos", error);
       }
     };
+
     if (vehicleType && brand) {
       fetchModels();
     }
@@ -67,7 +74,7 @@ const RegisterCar = () => {
         console.error("Erro ao buscar anos", error);
       }
     };
-    if (vehicleType && brand && model) {
+    if (vehicleType !== null && brand && model) {
       fetchYears();
     }
   }, [model, brand, vehicleType]);
@@ -108,7 +115,7 @@ const RegisterCar = () => {
     const hasEmptyFields = requiredFields.some((field) => !formData[field]);
 
     if (hasEmptyFields) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
+      addToast("Atenção", "warning", "Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
@@ -116,7 +123,13 @@ const RegisterCar = () => {
     const updatedData = [...existingData, { ...formData, car }];
     localStorage.setItem("carData", JSON.stringify(updatedData));
 
-    navigate("/solicitation");
+    addToast(`${car.Modelo}`, "success", "Simulação cadastrada com sucesso.");
+    cleanForm();
+    setBrands([]);
+    setVehicleType(null);
+    setCar(null);
+    setModels([]);
+    setYears([]);
   };
 
   return (
@@ -129,7 +142,7 @@ const RegisterCar = () => {
             size="sm"
             name="tipo"
             onChange={(e) => setVehicleType(e.target.value)}>
-            <option>Selecione o tipo</option>
+            <option value={null}>Selecione o tipo</option>
             {vehicleTypes.map((vehicle) => (
               <option key={vehicle.type} value={vehicle.type}>
                 {vehicle.type.toUpperCase()}
@@ -142,7 +155,7 @@ const RegisterCar = () => {
             size="sm"
             name="marca"
             onChange={(e) => setBrand(e.target.value)}>
-            <option>Selecione a marca</option>
+            <option value={null}>Selecione a marca</option>
             {brands.map((brandItem) => (
               <option key={brandItem.codigo} value={brandItem.codigo}>
                 {brandItem.codigo} {brandItem.nome}
@@ -252,6 +265,7 @@ const RegisterCar = () => {
         </div>
         <Button type="submit">Enviar</Button>
       </Form>
+      <ToastItem toasts={toasts} />
     </div>
   );
 };
